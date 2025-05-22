@@ -254,11 +254,14 @@ review:
 今日内容：
 
 1. 保存作用域
-   原始情况下，保存作用域我们可以认为有四个: page(页面级别，现在几乎不用) , request(一次请求响应范围),
-   session(一次会话范围) , application(整个应用程序范围)
+   原始情况下，保存作用域我们可以认为有四个: page(页面级别，现在几乎不用)，request(一次请求响应范围)，
+   session(一次会话范围)，application(整个应用程序范围)
     1) request：一次请求响应范围
+       ![img.png](../images/33_a_request_scope.png)
     2) session：一次会话范围有效
+       ![img_1.png](../images/33_b_session_scope.png)
     3) application： 一次应用程序范围有效
+       ![img_2.png](../images/33_c_application_scope.png)
 
 2. 路径问题
     1) 相对路径
