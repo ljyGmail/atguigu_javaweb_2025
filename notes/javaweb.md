@@ -157,6 +157,8 @@ CREATE TABLE t_fruit
         - `session.setMaxInactiveInterval()` -> 设置非激活间隔时长
         - `session.invalidate()` -> 强制性让会话立即失效
 
+## 28 session保存作用域
+
 3. session保存作用域
    ![28_session_scope.png](../images/28_session_scope.png)
     - session保存作用域是和具体的某一个session对应的
@@ -164,6 +166,19 @@ CREATE TABLE t_fruit
         - void session.setAttribute(k, v)
         - Object session.getAttribute(k)
         - void session.removeAttribute(k)
+
+## 29 服务器端转发和客户端重定向
+
+### 6. 服务器内部转发以及客户端重定向
+
+- 服务器内部转发: `request.getRequestDispatcher("...").forward(request, response)`
+    - 一次请求响应的过程，对于客户端而言，内部经过了多少次转发，客户端是不知道的。
+    - 地址栏没有变化
+      ![29_a_server.request_forward.png](../images/29_a_server.request_forward.png)
+- 客户端重定向: `response.sendRedirect("...")`
+    - 两次请求响应的过程，客户端肯定知道，请求URL有变化。
+    - 地址栏有变化
+      ![29_b_client_response_redirect.png](../images/29_b_client_response_redirect.png)
 
 > 200: 正常响应  
 > 404: 找不到资源  
