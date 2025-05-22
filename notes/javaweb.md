@@ -180,6 +180,25 @@ CREATE TABLE t_fruit
     - 地址栏有变化
       ![29_b_client_response_redirect.png](../images/29_b_client_response_redirect.png)
 
+## 30 Thymeleaf快速入门
+
+### 7. Thymeleaf - 视图模板技术
+
+1. 添加Thymeleaf的依赖。
+2. 新建一个Servlet类`ViewBaseServlet`。
+3. 在`web.xml`文件中添加配置。
+    - 配置前缀 view-prefix
+    - 配置后缀 view-suffix
+4. 使我们的Servlet继承`ViewBaseServlet`。
+5. 根据`逻辑视图名称`得到`物理视图名称`。
+```java
+// 此处的视图名称是index
+// 那么Thymeleaf会将这个 逻辑视图名称 对应到 物理视图名称 上去
+// 逻辑视图名称: index
+// 物理视图名称: view-prefix + 逻辑视图名称 + view-suffix
+// 所以真实的视图名称是: /         index        .html
+```
+
 > 200: 正常响应  
 > 404: 找不到资源  
 > 405: 请求方式不支持  
