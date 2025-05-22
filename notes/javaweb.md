@@ -17,7 +17,7 @@ use
 fruitdb;
 CREATE TABLE t_fruit
 (
-    id     INT PRIMARY KEY AUTO_INCREMENT,
+    fid    INT PRIMARY KEY AUTO_INCREMENT,
     fname  VARCHAR(50),
     price  INT,
     fcount INT,
@@ -182,6 +182,8 @@ CREATE TABLE t_fruit
 
 ## 30 Thymeleaf快速入门
 
+## 31 Thymeleaf渲染index页面
+
 ### 7. Thymeleaf - 视图模板技术
 
 1. 添加Thymeleaf的依赖。
@@ -191,6 +193,7 @@ CREATE TABLE t_fruit
     - 配置后缀 view-suffix
 4. 使我们的Servlet继承`ViewBaseServlet`。
 5. 根据`逻辑视图名称`得到`物理视图名称`。
+
 ```java
 // 此处的视图名称是index
 // 那么Thymeleaf会将这个 逻辑视图名称 对应到 物理视图名称 上去
@@ -198,6 +201,9 @@ CREATE TABLE t_fruit
 // 物理视图名称: view-prefix + 逻辑视图名称 + view-suffix
 // 所以真实的视图名称是: /         index        .html
 ```
+
+6. 使用Thymeleaf的标签
+    - `th:if`, `th:unless`, `th:each`, `th:text`
 
 > 200: 正常响应  
 > 404: 找不到资源  
