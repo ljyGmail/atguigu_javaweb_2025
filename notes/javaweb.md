@@ -157,6 +157,14 @@ CREATE TABLE t_fruit
         - `session.setMaxInactiveInterval()` -> 设置非激活间隔时长
         - `session.invalidate()` -> 强制性让会话立即失效
 
+3. session保存作用域
+   ![28_session_scope.png](../images/28_session_scope.png)
+    - session保存作用域是和具体的某一个session对应的
+    - 常用的API:
+        - void session.setAttribute(k, v)
+        - Object session.getAttribute(k)
+        - void session.removeAttribute(k)
+
 > 200: 正常响应  
 > 404: 找不到资源  
 > 405: 请求方式不支持  
