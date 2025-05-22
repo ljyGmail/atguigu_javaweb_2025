@@ -19,6 +19,7 @@
         <module>pro07-javaweb-start</module>
         <module>pro08-javaweb-servlet</module>
         <module>pro09-fruit4-thymeleaf</module>
+        <module>pro10-fruit5-thymeleaf</module>
     </modules>
 
 </project>
