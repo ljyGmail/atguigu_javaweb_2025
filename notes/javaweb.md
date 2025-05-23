@@ -266,6 +266,7 @@ review:
 2. 路径问题
     1) 相对路径
     2) 绝对路径
+       ![img.png](../images/34_file_path.png)
 
 3. 实现库存系统的功能
 
