@@ -2,7 +2,7 @@ package com.atguigu.fruit.dao.impl;
 
 import com.atguigu.fruit.dao.FruitDAO;
 import com.atguigu.fruit.pojo.Fruit;
-import com.atguigu.fruit.myssm.basedao.BaseDAO;
+import com.atguigu.myssm.basedao.BaseDAO;
 
 import java.util.List;
 
@@ -20,4 +20,16 @@ public class FruitDAOImpl extends BaseDAO<Fruit> implements FruitDAO {
     public List<Fruit> getFruitList() {
         return executeQuery("select * from t_fruit");
     }
+
+    @Override
+    public Fruit getFruitByFid(Integer fid) {
+        return load("select * from t_fruit where fid = ?", fid);
+    }
+
+    @Override
+    public void updateFruit(Fruit fruit) {
+        String sql = "update t_fruit set fname = ?, price = ?, fcount = ?, remark = ? where fid = ?";
+        executeUpdate(sql, fruit.getFname(), fruit.getPrice(), fruit.getFcount(), fruit.getRemark(), fruit.getFid());
+    }
+
 }
