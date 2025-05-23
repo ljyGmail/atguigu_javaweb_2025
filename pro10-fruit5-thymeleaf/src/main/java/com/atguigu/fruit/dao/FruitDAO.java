@@ -22,4 +22,10 @@ public interface FruitDAO {
 
     // 修改指定的库存记录
     void updateFruit(Fruit fruit);
+
+    // 根据fid删除指定的库存记录
+    void delFruit(Integer fid);
+
+    // 添加新库存记录
+    void addFruit(Fruit fruit);
 }
