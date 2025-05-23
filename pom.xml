@@ -21,6 +21,7 @@
         <module>pro09-fruit4-thymeleaf</module>
         <module>pro10-fruit5-thymeleaf</module>
         <module>pro11-fruit6-pagination</module>
+        <module>pro12-fruit7-keyword</module>
     </modules>
 
 </project>
