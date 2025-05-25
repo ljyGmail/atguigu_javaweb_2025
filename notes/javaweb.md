@@ -270,6 +270,11 @@ review:
 
 3. 实现库存系统的功能
 
+## 40 MVC Servlet优化1
+
+![img.png](../images/40_a_servlet_old_style.png)
+![img_1.png](../images/40_b_servlet_improved_style.png)
+
 > 200: 正常响应  
 > 404: 找不到资源  
 > 405: 请求方式不支持  
