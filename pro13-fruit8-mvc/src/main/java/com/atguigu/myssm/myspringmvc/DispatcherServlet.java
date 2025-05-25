@@ -15,6 +15,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,25 +84,57 @@ public class DispatcherServlet extends ViewBaseServlet {
         }
 
         try {
-            Method method = controllerBeanObj.getClass().getDeclaredMethod(operate, HttpServletRequest.class);
-            if (method != null) {
-                // 2. Controller组件中的方法调用
-                method.setAccessible(true);
-                Object returnObj = method.invoke(controllerBeanObj, request);
+            Method[] methods = controllerBeanObj.getClass().getDeclaredMethods();
+            for (Method method : methods) {
+                if (operate.equals(method.getName())) {
+                    // 1. 统一获取请求参数
+                    // 获取当前方法的参数，返回参数数组
+                    Parameter[] parameters = method.getParameters();
+                    // parameterValues用来保存参数列表的值
+                    Object[] parameterValues = new Object[parameters.length];
+                    for (int i = 0; i < parameterValues.length; i++) {
+                        Parameter parameter = parameters[i];
+                        String parameterName = parameter.getName();
+                        if ("request".equals(parameterName)) {
+                            parameterValues[i] = request;
+                        } else if ("response".equals(parameterName)) {
+                            parameterValues[i] = response;
+                        } else if ("session".equals(parameterName)) {
+                            parameterValues[i] = request.getSession();
+                        } else {
+                            // 从请求对象中获取参数值
+                            String parameterValue = request.getParameter(parameterName);
+                            String typeName = parameter.getType().getName();
 
-                // 3. 视图处理
-                String methodReturnStr = (String) returnObj;
-                if (methodReturnStr.startsWith("redirect:")) { // 例如: redirect:fruit.do
-                    String redirectStr = methodReturnStr.substring("redirect:".length());
-                    response.sendRedirect(redirectStr);
-                } else {
-                    processTemplate(methodReturnStr, request, response); // 例如: "edit"
+                            if (parameterValue != null) {
+                                Object parameterObj = parameterValue;
+                                if ("java.lang.Integer".equals(typeName)) {
+                                    parameterObj = Integer.parseInt(parameterValue);
+                                }
+                                parameterValues[i] = parameterObj;
+                            }
+                        }
+                    }
+
+                    // 2. Controller组件中的方法调用
+                    method.setAccessible(true);
+                    Object returnObj = method.invoke(controllerBeanObj, parameterValues);
+
+                    // 3. 视图处理
+                    String methodReturnStr = (String) returnObj;
+                    if (methodReturnStr.startsWith("redirect:")) { // 例如: redirect:fruit.do
+                        String redirectStr = methodReturnStr.substring("redirect:".length());
+                        response.sendRedirect(redirectStr);
+                    } else {
+                        processTemplate(methodReturnStr, request, response); // 例如: "edit"
+                    }
+
                 }
-            } else {
-                throw new RuntimeException("operate值非法!");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+
+// 常见错误: IllegalArgumentException: argument type mismatch
