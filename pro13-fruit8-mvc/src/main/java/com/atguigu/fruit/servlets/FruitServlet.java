@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -38,28 +40,26 @@ public class FruitServlet extends ViewBaseServlet {
             operate = "index";
         }
 
-        switch (operate) {
-            case "index":
-                index(request, response);
-                break;
-            case "addUI":
-                addUI(request, response);
-                break;
-            case "add":
-                add(request, response);
-                break;
-            case "delete":
-                delete(request, response);
-                break;
-            case "edit":
-                edit(request, response);
-                break;
-            case "update":
-                update(request, response);
-                break;
-            default:
-                throw new RuntimeException("operate值非法");
+        // 获取当前类中所有的方法
+        Method[] methods = this.getClass().getDeclaredMethods();
+
+        for (Method m : methods) {
+            // 获取方法名称
+            String methodName = m.getName();
+            if (operate.equals(methodName)) {
+                // 找到和operate同名的方法，通过反射技术调用它
+                try {
+                    m.invoke(this, request, response);
+                    return;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
+        throw new RuntimeException("operate值非法");
     }
 
     private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
