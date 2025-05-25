@@ -1,68 +1,31 @@
-package com.atguigu.fruit.servlets;
+package com.atguigu.fruit.controller;
 
 import com.atguigu.fruit.dao.FruitDAO;
 import com.atguigu.fruit.dao.impl.FruitDAOImpl;
 import com.atguigu.fruit.pojo.Fruit;
-import com.atguigu.myssm.myspringmvc.ViewBaseServlet;
 import com.atguigu.myssm.util.StringUtil;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * ClassName: FruitServlet
- * Package: com.atguigu.fruit.servlets
+ * ClassName: FruitController
+ * Package: com.atguigu.fruit.controller
  * Description:
  *
  * @Author: ljy
- * @Create: 2025. 5. 24. 오전 9:36
+ * @Create: 2025. 5. 25. 오후 12:21
  * @Version 1.0
  */
-@WebServlet("/fruit.do")
-public class FruitServlet extends ViewBaseServlet {
+public class FruitController {
+
+    // 之前FruitServlet是一个Servlet组件，那么其中的init方法一定会被调用
+    // 之前
 
     private FruitDAO fruitDAO = new FruitDAOImpl();
 
-    @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 设置编码
-        request.setCharacterEncoding("UTF-8");
-
-        String operate = request.getParameter("operate");
-        if (StringUtil.isEmpty(operate)) {
-            operate = "index";
-        }
-
-        // 获取当前类中所有的方法
-        Method[] methods = this.getClass().getDeclaredMethods();
-
-        for (Method m : methods) {
-            // 获取方法名称
-            String methodName = m.getName();
-            if (operate.equals(methodName)) {
-                // 找到和operate同名的方法，通过反射技术调用它
-                try {
-                    m.invoke(this, request, response);
-                    return;
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        throw new RuntimeException("operate值非法");
-    }
-
-    private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private String index(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         // 设置当前页，默认值1
@@ -124,17 +87,10 @@ public class FruitServlet extends ViewBaseServlet {
         int pageCount = (fruitCount + 5 - 1) / 5;
         session.setAttribute("pageCount", pageCount);
 
-        // 此处的视图名称是index
-        // 那么Thymeleaf会将这个 逻辑视图名称 对应到 物理视图名称 上去
-        // 逻辑视图名称: index
-        // 物理视图名称: view-prefix + 逻辑视图名称 + view-suffix
-        // 所以真实的视图名称是: /         index        .html
-        super.processTemplate("index", request, response);
+        return "index";
     }
 
-    private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-
+    private String add(HttpServletRequest request) {
         String fname = request.getParameter("fname");
         String priceStr = request.getParameter("price");
         Integer price = Integer.parseInt(priceStr);
@@ -146,39 +102,37 @@ public class FruitServlet extends ViewBaseServlet {
 
         fruitDAO.addFruit(fruit);
 
-        response.sendRedirect("fruit.do");
+        return "redirect:fruit.do";
     }
 
-    private void addUI(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processTemplate("add", request, response);
+    private String addUI(HttpServletRequest request) {
+        return "add";
     }
 
-    private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private String delete(HttpServletRequest request) {
         String fidStr = request.getParameter("fid");
         if (StringUtil.isNotEmpty(fidStr)) {
             int fid = Integer.parseInt(fidStr);
             fruitDAO.delFruit(fid);
 
-            // processTemplate("index", request, response);
-            response.sendRedirect("fruit.do");
+            return "redirect:fruit.do";
         }
+        return "error";
     }
 
-    private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private String edit(HttpServletRequest request) {
         String fidStr = request.getParameter("fid");
         if (StringUtil.isNotEmpty(fidStr)) {
             int fid = Integer.parseInt(fidStr);
             Fruit fruit = fruitDAO.getFruitByFid(fid);
             request.setAttribute("fruit", fruit);
-            processTemplate("edit", request, response);
+            return "edit";
         }
+        return "error";
     }
 
-    private void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. 设置编码
-        request.setCharacterEncoding("UTF-8");
-
-        // 2. 获取参数
+    private String update(HttpServletRequest request) {
+        // 1. 获取参数
         String fidStr = request.getParameter("fid");
         Integer fid = Integer.parseInt(fidStr);
         String fname = request.getParameter("fname");
@@ -188,14 +142,10 @@ public class FruitServlet extends ViewBaseServlet {
         Integer fcount = Integer.parseInt(fcountStr);
         String remark = request.getParameter("remark");
 
-        // 3. 执行更新
+        // 2. 执行更新
         Fruit fruit = new Fruit(fid, fname, price, fcount, remark);
         fruitDAO.updateFruit(fruit);
 
-        // 4. 资源跳转
-        // processTemplate("index", request, response);
-        // request.getRequestDispatcher("index.html").forward(request, response);
-        // 此处需要重定向，目的是重现给IndexServlet发请求，重新获取fruitList，然后覆盖到session中，这样index.html页面上显示的session中的数据才是最新的。
-        response.sendRedirect("fruit.do");
+        return "redirect:fruit.do";
     }
 }
