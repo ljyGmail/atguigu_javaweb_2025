@@ -1,7 +1,7 @@
 package com.atguigu.fruit.controller;
 
-import com.atguigu.fruit.dao.FruitDAO;
-import com.atguigu.fruit.dao.impl.FruitDAOImpl;
+import com.atguigu.biz.FruitService;
+import com.atguigu.biz.impl.FruitServiceImpl;
 import com.atguigu.fruit.pojo.Fruit;
 import com.atguigu.myssm.util.StringUtil;
 
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class FruitController {
 
-    private FruitDAO fruitDAO = new FruitDAOImpl();
+    private FruitService fruitService = new FruitServiceImpl();
 
     private String index(String oper, String keyword, Integer pageNo, HttpServletRequest request) {
 
@@ -51,15 +51,12 @@ public class FruitController {
         // 重新更新当前页的值
         session.setAttribute("pageNo", pageNo);
 
-        FruitDAO fruitDAO = new FruitDAOImpl();
-        List<Fruit> fruitList = fruitDAO.getFruitList(keyword, pageNo);
+        List<Fruit> fruitList = fruitService.getFruitList(keyword, pageNo);
         // 保存到session作用域
         session.setAttribute("fruitList", fruitList);
 
-        // 总记录条数
-        int fruitCount = fruitDAO.getFruitCount(keyword);
         // 总页数
-        int pageCount = (fruitCount + 5 - 1) / 5;
+        int pageCount = fruitService.getPageCount(keyword);
         session.setAttribute("pageCount", pageCount);
 
         return "index";
@@ -67,7 +64,7 @@ public class FruitController {
 
     private String add(String fname, Integer price, Integer fcount, String remark) {
         Fruit fruit = new Fruit(0, fname, price, fcount, remark);
-        fruitDAO.addFruit(fruit);
+        fruitService.addFruit(fruit);
         return "redirect:fruit.do";
     }
 
@@ -77,7 +74,7 @@ public class FruitController {
 
     private String delete(Integer fid) {
         if (fid != null) {
-            fruitDAO.delFruit(fid);
+            fruitService.delFruit(fid);
 
             return "redirect:fruit.do";
         }
@@ -86,7 +83,7 @@ public class FruitController {
 
     private String edit(Integer fid, HttpServletRequest request) {
         if (fid != null) {
-            Fruit fruit = fruitDAO.getFruitByFid(fid);
+            Fruit fruit = fruitService.getFruitByFid(fid);
             request.setAttribute("fruit", fruit);
             return "edit";
         }
@@ -97,7 +94,7 @@ public class FruitController {
 
         // 执行更新
         Fruit fruit = new Fruit(fid, fname, price, fcount, remark);
-        fruitDAO.updateFruit(fruit);
+        fruitService.updateFruit(fruit);
 
         return "redirect:fruit.do";
     }
