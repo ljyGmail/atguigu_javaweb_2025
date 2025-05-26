@@ -374,6 +374,7 @@ review:
             - POJO/VO: 值对象
             - DAO: 数据访问对象
             - BO(Business Object): 业务对象
+            - DTO(Data Transfer Object): 数据传输对象
         - 区分业务对象和数据访问对象
             1) DAO中的方法都是单精度方法，或者称为细粒度方法。什么叫单精度？一个方法只考虑一个操作。比如添加就是`insert`
                、查询就是`select`操作...
@@ -397,7 +398,29 @@ review:
           系统架构或者设计的一个原则是: `高内聚低耦合`。
           层内部的结构应该是高度耦合的，而层与层之间的关系应该是低耦合的。
           最理想的情况是零耦合(也就是没有耦合)。
+    2) IOC - 控制反转 / DI - 依赖注入
+       控制反转:
+        1) 之前在Servlet中，我们创建service对象，`FruitService fruitService = new FruitServiceImpl();`  
+           这句话如果出现在servlet中的某个方法内部，那么这个fruitService的作用域(生命周期)就是这个方法级别。  
+           如果这句话出现在servlet的类中，也就是说fruitService是一个成员变量，那么这个fruitService的作用域(生命周期)
+           就是这个Servlet实例级别。
+        2) 之后我们在`applicationContext.xml`中定义了这个fruitService。然后通过解析XML，产生fruitService实例,  
+           存放在beanMap中，这个beanMap在一个BeanFactory中。  
+           因此，我们转移(改变)了之前的service实例、DAO实例等等的生命周期。控制权从程序员转移到了BeanFactory。  
+           这个现象我们称之为`控制反转`。
+
+       控制反转:
+        1) 之前我们在控制层写的代码: `FruitService fruitService = new FruitServiceImpl();`  
+           那么，控制层和service层存在耦合。
+        2) 之后我们将代码改成: `FruitService fruitService;`  
+           然后，在配置文件中配置:
+           ```
+           <bean id="fruit" class="FruitController">
+                <property name="fruitService" ref="fruitService" />
+           </bean>
+           ```
+
 5. 过滤器
-6. 事务管理
-7. TransactionManager、ThreadLocal、OpenSessionInViewFilter
+6. 事务管理(TransactionManager、ThreadLocal、OpenSessionInViewFilter)
+7. 监听器(Listener、ContextLoaderListener)
 
