@@ -313,3 +313,59 @@ review:
            `Object returnObj = method.invoke(controlllerBean, parameterValues);`
         3) 视图处理
 
+## 46 Servlet API
+
+今日内容:
+
+1. 再次学习Servlet的初始化方法
+    1) Servlet生命周期: 实例化、初始化、服务、销毁
+    2) Servlet中初始化方法有两个: init()、init(config)
+       其中带参数的方法代码如下:
+       ```java
+       public void init(ServletConfig config) throws ServletException {
+           this.config = config;
+           init();
+       }
+       ```
+       另外一个无参的init方法如下:
+       ```java
+       public void init() throws ServletException {
+       }
+       ```
+       如果我们想要在Servlet初始化时做一些准备工作，那么可以重写`init()`方法。
+       我们可以通过如下步骤去获取初始化设置的数据
+        - 获取config对象: `ServletConfig config = getServletConfig();`
+        - 获取初始化参数值: `config.getInitParameter(key)`
+    3) 在web.xml文件中配置Servlet
+    ```xml
+    <servlet>
+        <servlet-name>Demo01Servlet</servlet-name>
+        <servlet-class>com.atguigu.servlet.Demo01Servlet</servlet-class>
+        <init-param>
+            <param-name>hello</param-name>
+            <param-value>world</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Demo01Servlet</servlet-name>
+        <url-pattern>/demo01</url-pattern>
+    </servlet-mapping>
+    ```
+    4) 也可以通过注解的方式进行配置
+    ```java
+    @WebServlet(urlPatterns = {"/demo01"},
+    initParams = {@WebInitParam(name = "hello", value = "world_annotation"),
+    @WebInitParam(name = "uname", value = "jim")})
+    ```
+2. 学习Servlet中的ServletContext和<context-param>
+    1) 获取ServletContext
+        - 在初始化方法中: `ServletContext servletContext = getServletContext();`。
+        - 在服务方法中也可以通过request对象获取，也可以通过session获取。
+    2) 获取初始化值:
+        - `servletContext.getInitParameter();`
+3. 什么是业务层
+4. IOC
+5. 过滤器
+6. 事务管理
+7. TransactionManager、ThreadLocal、OpenSessionInViewFilter
+

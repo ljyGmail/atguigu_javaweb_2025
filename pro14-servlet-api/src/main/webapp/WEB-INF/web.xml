@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+
+    <!--
+    <servlet>
+        <servlet-name>Demo01Servlet</servlet-name>
+        <servlet-class>com.atguigu.servlet.Demo01Servlet</servlet-class>
+        <init-param>
+            <param-name>hello</param-name>
+            <param-value>world</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Demo01Servlet</servlet-name>
+        <url-pattern>/demo01</url-pattern>
+    </servlet-mapping>
+    -->
+</web-app>

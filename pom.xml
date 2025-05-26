@@ -23,6 +23,7 @@
         <module>pro11-fruit6-pagination</module>
         <module>pro12-fruit7-keyword</module>
         <module>pro13-fruit8-mvc</module>
+        <module>pro14-servlet-api</module>
     </modules>
 
 </project>
