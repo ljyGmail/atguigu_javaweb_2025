@@ -430,6 +430,19 @@ review:
         - 如果采取的是xml文件的方式进行配置，那么过滤器的拦截顺序与`<servlet-mapping>`的顺序一致。
           ![img.png](../images/50_a_filter.png)
           ![img_1.png](../images/50_b_character_encoding_filter.png)
+
+## 51 事务管理需要了解的前置知识
+
 6. 事务管理(TransactionManager、ThreadLocal、OpenSessionInViewFilter)
+
+- 在DAO中管理事务
+  ![img.png](img.png)
+- 在Service中管理事务
+  ![img_1.png](img_1.png)
+- 在Filter中管理事务
+  ![img_2.png](img_2.png)
+- ThreadLocal
+  ![img_3.png](img_3.png)
+
 7. 监听器(Listener、ContextLoaderListener)
 
