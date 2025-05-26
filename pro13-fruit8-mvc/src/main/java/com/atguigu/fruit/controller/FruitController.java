@@ -1,7 +1,7 @@
 package com.atguigu.fruit.controller;
 
-import com.atguigu.biz.FruitService;
-import com.atguigu.biz.impl.FruitServiceImpl;
+import com.atguigu.fruit.service.FruitService;
+import com.atguigu.fruit.service.impl.FruitServiceImpl;
 import com.atguigu.fruit.pojo.Fruit;
 import com.atguigu.myssm.util.StringUtil;
 

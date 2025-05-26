@@ -1,9 +1,8 @@
-package com.atguigu.biz.impl;
+package com.atguigu.fruit.service.impl;
 
-import com.atguigu.biz.FruitService;
 import com.atguigu.fruit.dao.FruitDAO;
-import com.atguigu.fruit.dao.impl.FruitDAOImpl;
 import com.atguigu.fruit.pojo.Fruit;
+import com.atguigu.fruit.service.FruitService;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * @Version 1.0
  */
 public class FruitServiceImpl implements FruitService {
-    private FruitDAO fruitDAO = new FruitDAOImpl();
+    private FruitDAO fruitDAO;
 
     @Override
     public List<Fruit> getFruitList(String keyword, Integer pageNo) {

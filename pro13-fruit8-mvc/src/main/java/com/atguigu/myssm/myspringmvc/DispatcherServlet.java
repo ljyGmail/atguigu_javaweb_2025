@@ -1,23 +1,16 @@
 package com.atguigu.myssm.myspringmvc;
 
+import com.atguigu.myssm.io.BeanFactory;
+import com.atguigu.myssm.io.ClassPathXmlApplicationContext;
 import com.atguigu.myssm.util.StringUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * ClassName: DispatcherServlet
@@ -31,33 +24,12 @@ import java.util.Map;
 @WebServlet("*.do")
 public class DispatcherServlet extends ViewBaseServlet {
 
-    private Map<String, Object> beanMap = new HashMap<>();
+    private BeanFactory beanFactory;
 
-    public DispatcherServlet() {
-        try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("applicationContext.xml");
-            // 1. 创建DocumentBuilderFactory
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            // 2. 创建DocumentBuilder对象
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            // 3. 创建Document对象
-            Document document = builder.parse(is);
-            // 4. 获取所有的bean节点
-            NodeList beanList = document.getElementsByTagName("bean");
-
-            for (int i = 0; i < beanList.getLength(); i++) {
-                Node beanNode = beanList.item(i);
-                if (beanNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element beanElement = (Element) beanNode;
-                    String beanId = beanElement.getAttribute("id");
-                    String className = beanElement.getAttribute("class");
-                    Object beanObj = Class.forName(className).newInstance();
-                    beanMap.put(beanId, beanObj);
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        beanFactory = new ClassPathXmlApplicationContext();
     }
 
     @Override
@@ -75,7 +47,7 @@ public class DispatcherServlet extends ViewBaseServlet {
         int lastDotIndex = servletPath.lastIndexOf(".do");
         servletPath = servletPath.substring(0, lastDotIndex);
 
-        Object controllerBeanObj = beanMap.get(servletPath);
+        Object controllerBeanObj = beanFactory.getBean(servletPath);
 
         String operate = request.getParameter("operate");
 
