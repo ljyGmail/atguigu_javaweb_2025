@@ -421,6 +421,15 @@ review:
            ```
 
 5. 过滤器
+    1) Filter也属于Servlet规范。
+    2) Filter开发步骤: 新建类实现Filter接口，然后实现其中的三个方法: `init()`、`doFilter()`、`destroy()`。
+       配置Filter可以使用注解`@WebFilter`，也可以使用xml文件`<filter> <filter-mapping>`
+    3) Filter在配置时，和Servlet一样，也可以配置通配符，例如`@WebFilter("*.do")`表示拦截所有以.do结尾的请求。
+    4) 过滤器链
+        - 如果采取的是注解的方式进行配置，那么过滤器的拦截顺序不确定。
+        - 如果采取的是xml文件的方式进行配置，那么过滤器的拦截顺序与`<servlet-mapping>`的顺序一致。
+          ![img.png](../images/50_a_filter.png)
+          ![img_1.png](../images/50_b_character_encoding_filter.png)
 6. 事务管理(TransactionManager、ThreadLocal、OpenSessionInViewFilter)
 7. 监听器(Listener、ContextLoaderListener)
 

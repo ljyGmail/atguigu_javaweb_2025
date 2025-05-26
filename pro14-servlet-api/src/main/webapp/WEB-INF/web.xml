@@ -23,4 +23,40 @@
         <url-pattern>/demo01</url-pattern>
     </servlet-mapping>
     -->
+
+    <!--
+    <filter>
+        <filter-name>Demo01Filter</filter-name>
+        <filter-class>com.atguigu.filter.Demo01Filter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Demo01Filter</filter-name>
+        <url-pattern>/demo01.do</url-pattern>
+    </filter-mapping>
+    -->
+    <filter>
+        <filter-name>Filter01</filter-name>
+        <filter-class>com.atguigu.filter.Filter01</filter-class>
+    </filter>
+    <filter>
+        <filter-name>Filter02</filter-name>
+        <filter-class>com.atguigu.filter.Filter02</filter-class>
+    </filter>
+    <filter>
+        <filter-name>Filter03</filter-name>
+        <filter-class>com.atguigu.filter.Filter03</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Filter01</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filter02</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Filter03</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
 </web-app>

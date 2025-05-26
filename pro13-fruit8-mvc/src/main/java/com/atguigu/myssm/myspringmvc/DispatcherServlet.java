@@ -35,8 +35,8 @@ public class DispatcherServlet extends ViewBaseServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // 设置编码
-        request.setCharacterEncoding("UTF-8");
+        // 设置编码(编码设置在过滤器中进行。)
+        // request.setCharacterEncoding("UTF-8");
 
         // 假设url是: http://localhost:8080/pro13/hello.do
         // 那么servletPath是: /hello.do

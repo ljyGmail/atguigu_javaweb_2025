@@ -20,7 +20,7 @@ import java.io.IOException;
  * @Version 1.0
  */
 
-@WebServlet(urlPatterns = {"/demo01"},
+@WebServlet(urlPatterns = {"/demo01.do"},
         initParams = {@WebInitParam(name = "hello", value = "world_annotation"),
                 @WebInitParam(name = "uname", value = "jim")})
 public class Demo01Servlet extends HttpServlet {
@@ -41,6 +41,10 @@ public class Demo01Servlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // request.getServletContext();
         // request.getSession().getServletContext();
+
+        System.out.println("demo01 service...");
+
+        request.getRequestDispatcher("succ.html").forward(request, response);
     }
 }
 
