@@ -105,6 +105,7 @@ public class DispatcherServlet extends ViewBaseServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            throw new DispatcherServletException("DispatcherServlet出错了");
         }
     }
 }
