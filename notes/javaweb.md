@@ -436,13 +436,13 @@ review:
 6. 事务管理(TransactionManager、ThreadLocal、OpenSessionInViewFilter)
 
 - 在DAO中管理事务
-  ![img.png](img.png)
+  ![img.png](../images/51_a_tx_in_dao.png)
 - 在Service中管理事务
-  ![img_1.png](img_1.png)
+  ![img_1.png](../images/51_b_tx_in_service.png)
 - 在Filter中管理事务
-  ![img_2.png](img_2.png)
+  ![img_2.png](../images/51_c_tx_in_filter.png)
 - ThreadLocal
-  ![img_3.png](img_3.png)
+  ![img_3.png](../images/51_d_thread_local.png)
 
 7. 监听器(Listener、ContextLoaderListener)
     1) ServletContextListener - 监听ServletContext对象的创建和销毁的过程。
@@ -458,3 +458,5 @@ review:
 
 - ServletContextListener的应用: `ContextLoaderListener`
 
+## 55 MVC Review
+![img_4.png](../images/55_entire_flow.png)
