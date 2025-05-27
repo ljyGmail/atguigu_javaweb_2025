@@ -445,4 +445,16 @@ review:
   ![img_3.png](img_3.png)
 
 7. 监听器(Listener、ContextLoaderListener)
+    1) ServletContextListener - 监听ServletContext对象的创建和销毁的过程。
+    2) HttpSessionListener - 监听HttpSession对象的创建和销毁的过程。
+    3) ServletRequestListener - 监听ServletRequest对象的创建和销毁的过程。
+
+    4) ServletContextAttributeListener - 监听ServletContext的保存作用域的改动(add、remove、replace)。
+    5) HttpSessionAttributeListener - 监听HttpSession的保存作用域的改动(add、remove、replace)。
+    6) ServletRequestAttributeListener - 监听ServletRequest的保存作用域的改动(add、remove、replace)。
+
+    7) HttpSessionBindingListener - 监听某个对象在Session中的创建与移除。
+    8) HttpSessionActivationListener - 监听某个对象在Session中的序列化与反序列化。
+
+- ServletContextListener的应用: `ContextLoaderListener`
 

@@ -59,4 +59,8 @@
         <filter-name>Filter03</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
+
+    <listener>
+        <listener-class>com.atguigu.listener.MyServletContextListener</listener-class>
+    </listener>
 </web-app>

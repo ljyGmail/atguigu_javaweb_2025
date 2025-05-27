@@ -1,5 +1,6 @@
-package com.atguigu.myssm.io;
+package com.atguigu.myssm.ioc;
 
+import com.atguigu.myssm.util.StringUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -23,10 +24,18 @@ import java.util.Map;
  */
 public class ClassPathXmlApplicationContext implements BeanFactory {
     private Map<String, Object> beanMap = new HashMap<>();
+    private String path = "applicationContext.xml";
 
     public ClassPathXmlApplicationContext() {
+        this("applicationContext.xml");
+    }
+
+    public ClassPathXmlApplicationContext(String path) {
+        if (StringUtil.isEmpty(path)) {
+            throw new RuntimeException("IOC容器的配置文件没有指定...");
+        }
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("applicationContext.xml");
+            InputStream is = getClass().getClassLoader().getResourceAsStream(path);
             // 1. 创建DocumentBuilderFactory
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             // 2. 创建DocumentBuilder对象
