@@ -26,7 +26,9 @@ public class UserController {
         // 1. 登录验证
         UserBasic userBasic = userBasicService.login(loginId, pwd);
         if (userBasic != null) {
+            // 1-1 获取相关的好友信息
             List<UserBasic> friendList = userBasicService.getFriendList(userBasic);
+            // 1-2 获取日志列表
             List<Topic> topicList = topicService.getTopicList(userBasic);
 
             userBasic.setFriendList(friendList);
