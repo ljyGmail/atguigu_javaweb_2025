@@ -18,7 +18,7 @@ public class ConnectionUtil {
     private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    public static final String URL = "jdbc:mysql://localhost:3306/fruitdb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+    public static final String URL = "jdbc:mysql://localhost:3306/qqzonedb?useUnicode=true&characterEncoding=utf-8&useSSL=false";
     public static final String USER = "root";
     public static final String PWD = "445566hh";
 

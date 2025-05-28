@@ -26,4 +26,8 @@ public class UserBasic {
     private UserDetail userDetail; // 1:1
     private List<Topic> topicList; // 1:N
     private List<UserBasic> friendList; // M:N
+
+    public UserBasic(Integer id) {
+        this.id = id;
+    }
 }
