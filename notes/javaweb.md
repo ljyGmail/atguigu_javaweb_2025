@@ -459,4 +459,9 @@ review:
 - ServletContextListener的应用: `ContextLoaderListener`
 
 ## 55 MVC Review
+
 ![img_4.png](../images/55_entire_flow.png)
+
+## 61 QQZone Review
+
+![img.png](../images/61_qqzone_process.png)
