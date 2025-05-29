@@ -466,7 +466,7 @@ review:
 
 ![img.png](../images/61_qqzone_process.png)
 
-## 61 QQZone 点击左侧链接 修改TOP页面信息
+## 62 QQZone 点击左侧链接 修改TOP页面信息
 
 1. top.html页面显示登录者昵称、判断是否是自己的空间
     1) 显示登录者昵称: `${session.userBasic.nickName}`
@@ -482,5 +482,30 @@ review:
     4) top.html页面需要修改: "欢迎进入${session.friend.nickName}"  
        返回自己空间的超链接需要修改:  
        `<a th:href="@{|/user.do?operate=friend&id=${session.userBasic.id}|}" target="_top">返回自己的空间!</a>`
-        
-   
+
+## 63 QQZone 点击日志获取日志详情 服务器端实现
+
+3. 日志详情页面的实现
+    1) 已知topic的id，需要根据topic的id获取特定topic
+    2) 获取这个topic关联的所有的回复
+    3) 如果某个回复有主人回复，需要查询出来
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

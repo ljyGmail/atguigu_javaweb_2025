@@ -25,4 +25,8 @@ public class Topic {
 
     private UserBasic author; // N:1
     private List<Reply> replyList; // 1:N
+
+    public Topic(Integer id) {
+        this.id = id;
+    }
 }

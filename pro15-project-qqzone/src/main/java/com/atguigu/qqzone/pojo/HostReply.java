@@ -3,7 +3,7 @@ package com.atguigu.qqzone.pojo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * ClassName: HostReply
@@ -19,8 +19,12 @@ import java.util.Date;
 public class HostReply {
     private Integer id;
     private String content;
-    private Date hostReplyDate;
+    private LocalDateTime hostReplyDate;
 
     private UserBasic author; // N:1
     private Reply reply; // 1:1
+
+    public HostReply(Integer id) {
+        this.id = id;
+    }
 }
