@@ -19,4 +19,7 @@ public interface TopicService {
     List<Topic> getTopicList(UserBasic userBasic);
 
     Topic getTopicById(Integer id);
+
+    // 根据id获取指定的topic信息，包含这个topic关联的作者信息
+    Topic getTopic(Integer id);
 }

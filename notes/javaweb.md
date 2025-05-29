@@ -489,6 +489,10 @@ review:
     1) 已知topic的id，需要根据topic的id获取特定topic
     2) 获取这个topic关联的所有的回复
     3) 如果某个回复有主人回复，需要查询出来
+        - 在TopicController中获取指定的topic
+        - 这个topic具体关联了多少个Reply，有ReplyService内部实现
+    4) 获取到的topic中的author只有id，那么需要在topicService的getTopic方法中封装，在查询topic本身信息时，
+    5) 同理，在Reply类中也有author，而且这个author也是只有id，那么我们也需要根据id查询得到author，最后设置关联。
 
 
 
