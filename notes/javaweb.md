@@ -465,3 +465,22 @@ review:
 ## 61 QQZone Review
 
 ![img.png](../images/61_qqzone_process.png)
+
+## 61 QQZone 点击左侧链接 修改TOP页面信息
+
+1. top.html页面显示登录者昵称、判断是否是自己的空间
+    1) 显示登录者昵称: `${session.userBasic.nickName}`
+    2) 判断是否是自己的空间: `${session.userBasic.id != session.friend.id}`  
+       如果没有得到期望的效果，首先考虑将两者的id都显示出来。
+
+2. 点击左侧的好友链接，进入好友的空间
+    1) 根据id获取指定userBasic信息，查询这个userBasic的topicList,然后覆盖friend对应的值。
+    2) main页面应该展示friend中的topicList，而不是userBasic中的topicList。
+    3) 跳转后，在左侧(left)中显示整个index页面
+        - 问题: 在left页面显示整个index布局
+        - 解决: 给超链接添加target属性: `target="_top"`保证在顶层窗口显示整个index页面。
+    4) top.html页面需要修改: "欢迎进入${session.friend.nickName}"  
+       返回自己空间的超链接需要修改:  
+       `<a th:href="@{|/user.do?operate=friend&id=${session.userBasic.id}|}" target="_top">返回自己的空间!</a>`
+        
+   

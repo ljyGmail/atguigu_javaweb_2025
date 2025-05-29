@@ -25,7 +25,7 @@ public class TransactionManager {
     public static void commit() throws SQLException {
         Connection conn = ConnectionUtil.getConnection();
         conn.commit();
-        conn.close();
+        // conn.close();
         ConnectionUtil.closeConnection();
     }
 
