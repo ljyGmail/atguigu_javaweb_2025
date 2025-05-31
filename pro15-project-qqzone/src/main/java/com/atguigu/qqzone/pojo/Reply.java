@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Reply {
     private Integer id;
-    private String title;
     private String content;
     private LocalDateTime replyDate;
 
@@ -28,5 +27,12 @@ public class Reply {
 
     public Reply(Integer id) {
         this.id = id;
+    }
+
+    public Reply(String content, LocalDateTime replyDate, UserBasic author, Topic topic) {
+        this.content = content;
+        this.replyDate = replyDate;
+        this.author = author;
+        this.topic = topic;
     }
 }

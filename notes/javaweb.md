@@ -494,6 +494,8 @@ review:
     4) 获取到的topic中的author只有id，那么需要在topicService的getTopic方法中封装，在查询topic本身信息时，
     5) 同理，在Reply类中也有author，而且这个author也是只有id，那么我们也需要根据id查询得到author，最后设置关联。
 
+4. 添加回复
+    1)
 
 
 

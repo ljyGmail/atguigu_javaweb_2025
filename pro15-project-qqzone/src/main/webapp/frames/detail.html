@@ -7,11 +7,17 @@
     <link rel="stylesheet" th:href="@{/css/detail.css}">
     <script language="JavaScript">
         function showDelImg(imgId) {
-            document.getElementById(imgId).style.display = 'inline';
+            var obj = document.getElementById(imgId);
+            if (obj) {
+                obj.style.display = 'inline';
+            }
         }
 
         function hiddenDelImg(imgId) {
-            document.getElementById(imgId).style.display = 'none';
+            var obj = document.getElementById(imgId);
+            if (obj) {
+                obj.style.display = 'none';
+            }
         }
     </script>
 </head>
@@ -56,9 +62,15 @@
                     </div>
                     <div class="h32 center" style="width:100%;" th:text="${reply.author.nickName}">段誉</div>
                 </td>
-                <td class="reply_title" onmouseover="showDelImg('img02')" onmouseout="hiddenDelImg('img02')">
+                <td class="reply_title" th:onmouseover="|showDelImg('img${reply.id}')|"
+                    th:onmouseout="|hiddenDelImg('img${reply.id}')|">
                     <span th:text="|回复: ${session.topic.title}|">回复：萧某今天就和天下群雄决一死战，你们一起上吧！</span>
-                    <img id="img02"
+                    <!-- 出现删除这个小图标的条件:
+                        1. 在我自己的空间(那当然我对自己的空间拥有所有的权限)
+                        2. 当前回复的作者就是我(那我可以删除自己的回复)
+                    -->
+                    <img th:if="${session.userBasic.id == session.friend.id || session.userBasic.id == reply.author.id}"
+                         th:id="|img${reply.id}|"
                          style="float: right;margin-top:2px;margin-right:2px;display: none;width: 24px;height: 24px;"
                          th:src="@{/imgs/del.jpg}"/>
                     <span class="title_date_right" th:text="${reply.replyDate}">2021-09-01 14:35:15</span>
@@ -87,15 +99,18 @@
 </div>
 <div id="div_add_reply">
     <p class="add_reply_title">添加回复</p>
-    <form action="" method="post">
+    <form th:action="@{/reply.do}" method="post">
+        <input type="hidden" name="operate" value="addReply"/>
+        <input type="hidden" name="topicId" th:value="${session.topic.id}"/>
         <table>
             <tr>
                 <th style="width: 25%">回复日志：</th>
-                <td><input type="text" value="《萧某今天就和天下群雄决一死战，你们一起上吧！》" readonly/></td>
+                <td><input type="text" th:value="|《${session.topic.title}》|"
+                           value="《萧某今天就和天下群雄决一死战，你们一起上吧！》" readonly/></td>
             </tr>
             <tr>
                 <th>回复内容：</th>
-                <td><textarea rows="3"></textarea></td>
+                <td><textarea rows="3" name="content"></textarea></td>
             </tr>
             <tr>
                 <th colspan="2">
